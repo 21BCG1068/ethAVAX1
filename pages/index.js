@@ -34,7 +34,7 @@ export default function HomePage() {
 
   const connectAccount = async() => {
     if (!ethWallet) {
-      alert('MetaMask wallet is required to connect');
+      alert('Wallet is required to connect');
       return;
     }
   
@@ -83,7 +83,7 @@ export default function HomePage() {
 
     // Check to see if user is connected. If not, connect to their account
     if (!account) {
-      return <button onClick={connectAccount}>Please connect your Metamask wallet</button>
+      return <button onClick={connectAccount}>Please connect your wallet</button>
     }
 
     if (balance == undefined) {
@@ -92,8 +92,8 @@ export default function HomePage() {
 
     return (
       <div>
-        <p>Your Account: {account}</p>
-        <p>Your Balance: {balance}</p>
+        <p>Account: {account}</p>
+        <p>Balance: {balance}</p>
         <button onClick={deposit}>Deposit 1 ETH</button>
         <button onClick={withdraw}>Withdraw 1 ETH</button>
       </div>
@@ -102,16 +102,70 @@ export default function HomePage() {
 
   useEffect(() => {getWallet();}, []);
 
+  
+
   return (
     <main className="container">
-      <header><h1>Welcome to the Metacrafters ATM!</h1></header>
-      {initUser()}
+      <header>
+        <h1>Greetings from Arsh!</h1>
+      </header>
+      <div className="user-info">
+        {ethWallet ? (
+          account ? (
+            <>
+              <p>Your Account: {account}</p>
+              <p>Your Balance: {balance}</p>
+              <button onClick={deposit}>Deposit 1 ETH</button>
+              <button onClick={withdraw}>Withdraw 1 ETH</button>
+            </>
+          ) : (
+            <button onClick={connectAccount}>Please connect your Metamask wallet</button>
+          )
+        ) : (
+          <p>Please install Metamask in order to use this ATM.</p>
+        )}
+      </div>
       <style jsx>{`
         .container {
-          text-align: center
+          text-align: center;
+          padding: 20px;
+        }
+
+        header {
+          margin-bottom: 20px;
+        }
+
+        .user-info {
+          margin-top: 30px;
+        }
+
+        .user-info p {
+          margin-bottom: 10px;
+        }
+
+        .user-info button {
+          margin: 5px;
+          padding: 10px 20px;
+          background-color: #808080;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        .user-info button:hover {
+          background-color: #90EE90;
         }
       `}
       </style>
     </main>
-  )
+  );
+
+
 }
+
+
+
+
+
+
